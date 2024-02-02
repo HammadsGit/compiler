@@ -84,7 +84,6 @@ ParserInfo compile (char* dir_name)
             StopParser();
 
         }
-
         add_symbol("null", 0, VAR);
 
 
@@ -129,8 +128,6 @@ ParserInfo compile (char* dir_name)
                     StopParser();
                 }
 
-                //remove .jack from the name in a new variable.
-
                 char* extension = strrchr(file_paths, '.'); // find last occurrence of '.'
 
                 if (extension != NULL && strcmp(extension, ".jack") == 0) {
@@ -138,27 +135,17 @@ ParserInfo compile (char* dir_name)
                     strcat(file_paths, ".vm");
                 }
 
-
-
-//                printf("%s\n", file_paths);
-
                 FILE *fp;
 
 
                 fp = fopen(file_paths, "w");
 
                 fclose(fp);
-
-
             }
         }
 
-        //clears the path for the next compilation.
-
         strcpy(new_path, "");
         closedir(dir);
-//        free(ent);
-
         p.er = none;
         return p;
     }
