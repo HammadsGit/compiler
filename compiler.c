@@ -24,36 +24,16 @@ Date Work Commenced: 10/04/2023
 #define DT_REG 8
 #endif
 
-
-
 int InitCompiler ()
 {
-
     init_symbol_table();
 
     // initailize the symbol table.
     return 1;
 }
-
 ParserInfo compile (char* dir_name)
 {
-
-//    strcat(dir_name, "_compiled");
-
-//    set_current_pass();
-
-
-
-
     ParserInfo p;
-
-//    if(strcmp(dir_name, "pong") == 0){
-//        p.er = none;
-//        return p;
-//    }
-
-
-
 
     // open the directory
     DIR *dir;
@@ -74,32 +54,15 @@ ParserInfo compile (char* dir_name)
 
     strcat(new_path, dir_name);
 
-
-
-
-
-
-
-
-
     dir = opendir(new_path);
-
-
-
 
     if (dir == NULL) { // if the directory is not opened successfully
         perror("Unable to open directory");
-
-
         p.er = none; // set the error to lexer error. for directory not found.
         return p;
-
-
     }
 
     else{ // if the directory is opened successfully
-
-
         append_current_pass();
 
         //parse all the main libraries and add them to the symbol table.
@@ -122,13 +85,7 @@ ParserInfo compile (char* dir_name)
 
         }
 
-
-
-//        printf("\n\n");
-
         add_symbol("null", 0, VAR);
-
-
 
 
         while ((ent = readdir(dir)) != NULL) {
@@ -138,35 +95,11 @@ ParserInfo compile (char* dir_name)
                 char file_path[128];
 
                 strcpy(file_path, new_path);
-
-
-
-
                 strcat(file_path, "/");
-
                 strcat(file_path, ent->d_name);
-
-//                printf("%s\n", file_path);
-
-
-
-
-
-
-
-//                first pass for symbol table.
                 InitParser(file_path);
                 p = Parse();
                 StopParser();
-
-
-
-
-
-
-
-
-
 
             }
         }
@@ -180,22 +113,13 @@ ParserInfo compile (char* dir_name)
                 // create a new path for the file.
                 char file_paths[256];
 
-//                strcat(file_paths, "");
+
 
                 strcpy(file_paths, new_path);
 
                 strcat(file_paths, "/");
 
                 strcat(file_paths, ent->d_name);
-
-
-                //parse once for code generation and once for symbol table.
-
-
-
-
-
-                //second pass for code generation.
 
 
                 if(p.er == none){
@@ -226,22 +150,8 @@ ParserInfo compile (char* dir_name)
                 fclose(fp);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             }
         }
-
-//        clear_symbol_table();
 
         //clears the path for the next compilation.
 
@@ -254,8 +164,6 @@ ParserInfo compile (char* dir_name)
     }
 
 
-
-
     p.er = none;
     return p;
 }
@@ -266,13 +174,11 @@ int StopCompiler ()
     return 1;
 }
 
-
 #ifndef TEST_COMPILER
 int main ()
 {
 	InitCompiler ();
 	ParserInfo p = compile ("pong");
-//	perror(p);
 	StopCompiler ();
 	return 1;
 }
